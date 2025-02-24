@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3d53nlvvdc5k"]
+
+[ext_resource type="Script" path="res://scenes/enemys/Enemy.cs" id="1_8enof"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_w6wu2"]
+size = Vector2(20, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y3yvv"]
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_8enof")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_w6wu2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_y3yvv")
