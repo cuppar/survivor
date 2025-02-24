@@ -8,4 +8,4 @@ script = ExtResource("2_7xbqn")
 Title = "Cube"
 Texture = ExtResource("1_4mbaq")
 Health = 0.0
-Damage = 0.0
+Damage = 5.0

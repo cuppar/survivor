@@ -8,4 +8,4 @@ script = ExtResource("2_fe22k")
 Title = "Eye Ghost"
 Texture = ExtResource("1_n701g")
 Health = 0.0
-Damage = 0.0
+Damage = 7.0

@@ -3,6 +3,8 @@ using Godot;
 using Godot.Collections;
 using Survivor.Globals.Extensions;
 
+namespace Survivor;
+
 public partial class Spawner : Node2D
 {
     [Export] public Player Player { get; set; } = null!;

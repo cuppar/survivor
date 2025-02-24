@@ -1,5 +1,8 @@
 using Godot;
 
+namespace Survivor;
+
+
 [GlobalClass]
 public partial class EnemyType : Resource
 {
@@ -8,3 +11,4 @@ public partial class EnemyType : Resource
     [Export] public float Health { get; set; }
     [Export] public float Damage { get; set; }
 }
+
