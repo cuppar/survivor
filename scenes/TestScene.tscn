@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://d4b65dtfjsv8v"]
+[gd_scene load_steps=3 format=3 uid="uid://d4b65dtfjsv8v"]
 
 [ext_resource type="PackedScene" uid="uid://bk0m34q1m35un" path="res://scenes/player/player.tscn" id="1_ig3pt"]
+[ext_resource type="Script" path="res://scenes/player/Player.cs" id="2_wrbka"]
 
 [node name="TestScene" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_ig3pt")]
 position = Vector2(295, 168)
+script = ExtResource("2_wrbka")
+Speed = 150.0
