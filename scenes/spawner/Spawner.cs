@@ -15,18 +15,10 @@ public partial class Spawner : Node2D
     public override void _Ready()
     {
         base._Ready();
-        Timer.Timeout += OnTimerTimeout;
+        Timer.Timeout += OnTimer_Timeout;
+        PatternTimer.Timeout += OnPatternTimer_Timeout;
+        EliteTimer.Timeout += OnEliteTimer_Timeout;
     }
-
-    #region 事件
-
-    private void OnTimerTimeout()
-    {
-        Second++;
-        Amount(Second % 10);
-    }
-
-    #endregion
 
     #endregion
 
@@ -34,13 +26,14 @@ public partial class Spawner : Node2D
 
     [Export] public Array<EnemyType> EnemyTypes { get; set; } = null!;
 
-    public void Spawn(Vector2 position)
+    public void Spawn(Vector2 position, bool isElite = false)
     {
         var enemy = EnemyScene.Instantiate<Enemy>();
 
         enemy.EnemyType = EnemyTypes[Math.Min(Minute, EnemyTypes.Count - 1)];
         enemy.Position = position;
         enemy.Player = Player;
+        enemy.IsElite = isElite;
 
         GetTree().CurrentScene.AddChild(enemy);
     }
@@ -50,6 +43,34 @@ public partial class Spawner : Node2D
         for (int i = 0; i < number; i++)
             Spawn(GetRandomPosition());
     }
+
+    #region 计时和普通怪物派生
+
+    private void OnTimer_Timeout()
+    {
+        Second++;
+        Amount(Second % 10);
+    }
+
+    #endregion
+
+    #region 按模式派生
+
+    private void OnPatternTimer_Timeout()
+    {
+        Amount(75);
+    }
+
+    #endregion
+
+    #region 精英怪派生
+
+    private void OnEliteTimer_Timeout()
+    {
+        Spawn(GetRandomPosition(), true);
+    }
+
+    #endregion
 
     #region 派生位置
 
@@ -122,14 +143,9 @@ public partial class Spawner : Node2D
     public Label MinuteLabel { get; set; } = null!;
 
     [Export] public Label SecondLabel { get; set; } = null!;
-
-    #region Child
-
-    [ExportGroup("ChildDontChange")]
-    [Export]
-    public Timer Timer { get; set; } = null!;
-
-    #endregion
+    [Export] public Timer Timer { get; set; } = null!;
+    [Export] public Timer PatternTimer { get; set; } = null!;
+    [Export] public Timer EliteTimer { get; set; } = null!;
 
     #endregion
 }

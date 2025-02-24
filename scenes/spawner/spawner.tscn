@@ -8,13 +8,15 @@
 [ext_resource type="Resource" uid="uid://ck2ynufm4inox" path="res://resources/enemys/EyeGhost.tres" id="6_apkix"]
 [ext_resource type="Resource" uid="uid://nw2i3xcs0pef" path="res://resources/enemys/Triple.tres" id="7_fy8d0"]
 
-[node name="Spawner" type="Node2D" node_paths=PackedStringArray("MinuteLabel", "SecondLabel", "Timer")]
+[node name="Spawner" type="Node2D" node_paths=PackedStringArray("MinuteLabel", "SecondLabel", "Timer", "PatternTimer", "EliteTimer")]
 script = ExtResource("1_01wsl")
 EnemyScene = ExtResource("2_6m8c8")
 EnemyTypes = Array[Object]([ExtResource("3_cwmoo"), ExtResource("4_x822t"), ExtResource("5_agyg4"), ExtResource("6_apkix"), ExtResource("7_fy8d0")])
 MinuteLabel = NodePath("UI/VBoxContainer/Minute")
 SecondLabel = NodePath("UI/VBoxContainer/Second")
 Timer = NodePath("Timer")
+PatternTimer = NodePath("Pattern")
+EliteTimer = NodePath("Elite")
 
 [node name="UI" type="CanvasLayer" parent="."]
 

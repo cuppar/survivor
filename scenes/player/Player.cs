@@ -2,6 +2,7 @@ using Godot;
 using Survivor.Globals.Extensions;
 
 namespace Survivor;
+
 [GlobalClass]
 public partial class Player : CharacterBody2D
 {
@@ -28,11 +29,9 @@ public partial class Player : CharacterBody2D
     {
         await this.EnsureReadyAsync();
         _health = value;
+        UI_Health.Value = Health;
         if (Health <= 0)
-        {
             GD.Print($"Die!");
-            QueueFree();
-        }
     }
 
     #endregion
@@ -49,6 +48,12 @@ public partial class Player : CharacterBody2D
     {
         if (body is Enemy enemy)
             TakeDamage(enemy.Damage);
+    }
+
+    private void OnTimer_Timeout()
+    {
+        SelfDamageCollisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+        SelfDamageCollisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
     }
 
     #endregion
@@ -77,6 +82,10 @@ public partial class Player : CharacterBody2D
     [ExportGroup("ChildDontChange")]
     [Export]
     public Area2D SelfDamageArea { get; set; } = null!;
+
+    [Export] public ProgressBar UI_Health { get; set; } = null!;
+    [Export] public Timer Timer { get; set; } = null!;
+    [Export] public CollisionShape2D SelfDamageCollisionShape { get; set; } = null!;
 
     #endregion
 }

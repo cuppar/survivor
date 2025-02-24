@@ -2,6 +2,7 @@ using Godot;
 using Survivor.Globals.Extensions;
 
 namespace Survivor;
+
 public partial class Enemy : CharacterBody2D
 {
     #region 基本信息
@@ -25,6 +26,30 @@ public partial class Enemy : CharacterBody2D
         _enemyType = value;
         Sprite.Texture = EnemyType.Texture;
         Damage = EnemyType.Damage;
+    }
+
+    #endregion
+
+    #region IsElite
+
+    private bool _isElite;
+
+    [Export]
+    public bool IsElite
+    {
+        get => _isElite;
+        set => SetIsElite(value);
+    }
+
+    private async void SetIsElite(bool value)
+    {
+        await this.EnsureReadyAsync();
+        _isElite = value;
+        if (IsElite)
+        {
+            Sprite.Material = ResourceLoader.Load<Material>("uid://j8upyv4v6hv1");
+            Scale = new Vector2(1.5f, 1.5f);
+        }
     }
 
     #endregion
