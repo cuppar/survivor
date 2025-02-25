@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SingleShot" load_steps=4 format=3 uid="uid://bpvdat6m46xec"]
+
+[ext_resource type="PackedScene" uid="uid://bdm5dahps5cxp" path="res://scenes/projectiles/projectile.tscn" id="1_sj03n"]
+[ext_resource type="Texture2D" uid="uid://dpbor0k7l3khn" path="res://assets/vfx/RPG Battlers 3/13.png" id="2_s33d6"]
+[ext_resource type="Script" path="res://scenes/weapons/SingleShot.cs" id="3_8uswt"]
+
+[resource]
+script = ExtResource("3_8uswt")
+Title = "Magic Wand"
+Texture = ExtResource("2_s33d6")
+Damage = 1.0
+Speed = 200.0
+Cooldown = 0.3
+ProjectilePrefab = ExtResource("1_sj03n")

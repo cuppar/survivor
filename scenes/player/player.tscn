@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bk0m34q1m35un"]
+[gd_scene load_steps=7 format=3 uid="uid://bk0m34q1m35un"]
 
 [ext_resource type="Script" path="res://scenes/player/Player.cs" id="1_6vuyf"]
+[ext_resource type="PackedScene" uid="uid://cpxbwk86ds03t" path="res://scenes/weapons/slot.tscn" id="2_4sayn"]
+[ext_resource type="Resource" uid="uid://bpvdat6m46xec" path="res://resources/weapons/ASingShot.tres" id="3_rr6ki"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_twj2v"]
 size = Vector2(20, 20)
@@ -15,6 +17,23 @@ SelfDamageArea = NodePath("SelfDamage")
 UI_Health = NodePath("Health")
 HurtTimer = NodePath("HurtTimer")
 SelfDamageCollisionShape = NodePath("SelfDamage/CollisionShape2D")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Weapons" type="HBoxContainer" parent="UI"]
+offset_left = -4.0
+offset_right = 36.0
+offset_bottom = 40.0
+
+[node name="Slot" parent="UI/Weapons" instance=ExtResource("2_4sayn")]
+layout_mode = 2
+Weapon = ExtResource("3_rr6ki")
+
+[node name="Slot2" parent="UI/Weapons" instance=ExtResource("2_4sayn")]
+layout_mode = 2
+
+[node name="Slot3" parent="UI/Weapons" instance=ExtResource("2_4sayn")]
+layout_mode = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("PlaceholderTexture2D_twj2v")

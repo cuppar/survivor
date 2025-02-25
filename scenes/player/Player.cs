@@ -1,11 +1,19 @@
 using Godot;
 using Survivor.Globals.Extensions;
+using Survivor.Interfaces;
 
 namespace Survivor;
 
 [GlobalClass]
-public partial class Player : CharacterBody2D
+public partial class Player : CharacterBody2D, IAttackable
 {
+    #region 最近的敌人
+
+    public Enemy? nearestEnemy;
+    public float distanceOfNearestEnemy = float.MaxValue;
+
+    #endregion
+
     #region 移动
 
     [Export] public float Speed { get; set; } = 150f;
@@ -44,7 +52,7 @@ public partial class Player : CharacterBody2D
 
     #region 受伤
 
-    private void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         Health -= damage;
     }
@@ -79,6 +87,15 @@ public partial class Player : CharacterBody2D
     {
         base._PhysicsProcess(delta);
         Move(delta);
+
+        if (IsInstanceValid(nearestEnemy))
+        {
+            distanceOfNearestEnemy = nearestEnemy!.distanceFromPlayer;
+        }
+        else
+        {
+            distanceOfNearestEnemy = float.MaxValue;
+        }
     }
 
     #endregion

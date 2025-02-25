@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpxbwk86ds03t"]
+
+[ext_resource type="Script" path="res://scenes/weapons/Slot.cs" id="1_n64yv"]
+
+[node name="Slot" type="PanelContainer" node_paths=PackedStringArray("CooldownTimer", "TextureRect")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_n64yv")
+CooldownTimer = NodePath("Cooldown")
+TextureRect = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Cooldown" type="Timer" parent="."]
+autostart = true

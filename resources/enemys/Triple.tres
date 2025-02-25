@@ -7,5 +7,5 @@
 script = ExtResource("2_0c300")
 Title = "Triple"
 Texture = ExtResource("1_ch51v")
-Health = 0.0
+Health = 5.0
 Damage = 9.0

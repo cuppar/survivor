@@ -7,5 +7,5 @@
 script = ExtResource("2_d0ub3")
 Title = "Eye Legs"
 Texture = ExtResource("1_2gi5f")
-Health = 0.0
+Health = 3.0
 Damage = 8.0

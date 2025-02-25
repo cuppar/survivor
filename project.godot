@@ -48,6 +48,7 @@ enabled=PackedStringArray("res://addons/imgui-godot/plugin.cfg", "res://addons/s
 folder_colors={
 "res://Shaders/": "purple",
 "res://assets/": "yellow",
+"res://playground/": "gray",
 "res://resources/": "green",
 "res://scenes/": "red"
 }
