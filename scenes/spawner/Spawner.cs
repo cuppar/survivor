@@ -135,7 +135,7 @@ public partial class Spawner : Node2D
         _second = value;
         if (Second >= 10)
         {
-            Second = 0;
+            _second = 0;
             Minute++;
         }
 

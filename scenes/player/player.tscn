@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bk0m34q1m35un"]
+[gd_scene load_steps=9 format=3 uid="uid://bk0m34q1m35un"]
 
 [ext_resource type="Script" path="res://scenes/player/Player.cs" id="1_6vuyf"]
 [ext_resource type="PackedScene" uid="uid://cpxbwk86ds03t" path="res://scenes/weapons/slot.tscn" id="2_4sayn"]
 [ext_resource type="Resource" uid="uid://bpvdat6m46xec" path="res://resources/weapons/ASingShot.tres" id="3_rr6ki"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_r0flp"]
+size = Vector2(640, 10)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_twj2v"]
 size = Vector2(20, 20)
@@ -11,19 +14,26 @@ size = Vector2(20, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7s826"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("SelfDamageArea", "UI_Health", "HurtTimer", "SelfDamageCollisionShape")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_wd7qb"]
+radius = 100.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("SelfDamageArea", "UI_Health", "HurtTimer", "SelfDamageCollisionShape", "XPBar", "LevelLabel", "MagnetArea")]
 script = ExtResource("1_6vuyf")
 SelfDamageArea = NodePath("SelfDamage")
 UI_Health = NodePath("Health")
 HurtTimer = NodePath("HurtTimer")
 SelfDamageCollisionShape = NodePath("SelfDamage/CollisionShape2D")
+XPBar = NodePath("UI/XPBar")
+LevelLabel = NodePath("UI/XPBar/LevelLabel")
+MagnetArea = NodePath("Magnet")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Weapons" type="HBoxContainer" parent="UI"]
-offset_left = -4.0
-offset_right = 36.0
-offset_bottom = 40.0
+offset_left = 2.0
+offset_top = 13.0
+offset_right = 130.0
+offset_bottom = 53.0
 
 [node name="Slot" parent="UI/Weapons" instance=ExtResource("2_4sayn")]
 layout_mode = 2
@@ -34,6 +44,26 @@ layout_mode = 2
 
 [node name="Slot3" parent="UI/Weapons" instance=ExtResource("2_4sayn")]
 layout_mode = 2
+
+[node name="XPBar" type="TextureProgressBar" parent="UI"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 10.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+texture_progress = SubResource("PlaceholderTexture2D_r0flp")
+
+[node name="LevelLabel" type="Label" parent="UI/XPBar"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_top = 15.0
+offset_right = -5.0
+offset_bottom = 39.0
+grow_horizontal = 0
+text = "Lv 1"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("PlaceholderTexture2D_twj2v")
@@ -61,3 +91,8 @@ metadata/_edit_use_anchors_ = true
 autostart = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Magnet" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Magnet"]
+shape = SubResource("CircleShape2D_wd7qb")
