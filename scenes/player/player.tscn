@@ -9,11 +9,11 @@ size = Vector2(20, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7s826"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("SelfDamageArea", "UI_Health", "Timer", "SelfDamageCollisionShape")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("SelfDamageArea", "UI_Health", "HurtTimer", "SelfDamageCollisionShape")]
 script = ExtResource("1_6vuyf")
 SelfDamageArea = NodePath("SelfDamage")
 UI_Health = NodePath("Health")
-Timer = NodePath("Timer")
+HurtTimer = NodePath("HurtTimer")
 SelfDamageCollisionShape = NodePath("SelfDamage/CollisionShape2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -38,7 +38,7 @@ value = 100.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
-[node name="Timer" type="Timer" parent="."]
+[node name="HurtTimer" type="Timer" parent="."]
 autostart = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
