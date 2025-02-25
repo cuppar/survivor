@@ -84,14 +84,11 @@ public partial class Enemy : CharacterBody2D
         Velocity = (Player.Position - Position).Normalized() * Speed;
         _knockback = _knockback.MoveToward(Vector2.Zero, 1);
         Velocity += _knockback;
-        var collition = MoveAndCollide(Velocity * (float)delta);
-        if (collition != null)
+        var collision = MoveAndCollide(Velocity * (float)delta);
+        var collider = collision?.GetCollider();
+        if (collider is Enemy enemy)
         {
-            var collider = collition.GetCollider();
-            if (collider is Enemy enemy)
-            {
-                enemy._knockback = (enemy.GlobalPosition - GlobalPosition).Normalized() * 50;
-            }
+            enemy._knockback = (enemy.GlobalPosition - GlobalPosition).Normalized() * 50;
         }
     }
 
