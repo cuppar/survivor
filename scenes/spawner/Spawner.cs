@@ -20,14 +20,24 @@ public partial class Spawner : Node2D
         EliteTimer.Timeout += OnEliteTimer_Timeout;
     }
 
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);
+        _canSpawn = GetTree().GetNodesInGroup("Enemy").Count < 700;
+    }
+
     #endregion
 
     #region 派生逻辑
 
     [Export] public Array<EnemyType> EnemyTypes { get; set; } = null!;
+    private bool _canSpawn = true;
 
     public void Spawn(Vector2 position, bool isElite = false)
     {
+        if (!_canSpawn && !isElite)
+            return;
+
         var enemy = EnemyScene.Instantiate<Enemy>();
 
         enemy.EnemyType = EnemyTypes[Math.Min(Minute, EnemyTypes.Count - 1)];

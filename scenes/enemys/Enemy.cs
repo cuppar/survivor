@@ -60,6 +60,7 @@ public partial class Enemy : CharacterBody2D
 
     [ExportGroup("移动")] [Export] public Vector2 Direction { get; set; } = Vector2.Zero;
     [Export] public float Speed { get; set; } = 100f;
+    private Vector2 _knockback;
 
     #endregion
 
@@ -74,8 +75,24 @@ public partial class Enemy : CharacterBody2D
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
+
+        var separation = (Player.Position - Position).Length();
+        if (separation >= 500 && !IsElite)
+            QueueFree();
+
+
         Velocity = (Player.Position - Position).Normalized() * Speed;
-        MoveAndCollide(Velocity * (float)delta);
+        _knockback = _knockback.MoveToward(Vector2.Zero, 1);
+        Velocity += _knockback;
+        var collition = MoveAndCollide(Velocity * (float)delta);
+        if (collition != null)
+        {
+            var collider = collition.GetCollider();
+            if (collider is Enemy enemy)
+            {
+                enemy._knockback = (enemy.GlobalPosition - GlobalPosition).Normalized() * 50;
+            }
+        }
     }
 
     #endregion
