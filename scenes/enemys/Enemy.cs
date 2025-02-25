@@ -58,9 +58,23 @@ public partial class Enemy : CharacterBody2D
 
     #region 移动
 
-    [ExportGroup("移动")] [Export] public Vector2 Direction { get; set; } = Vector2.Zero;
-    [Export] public float Speed { get; set; } = 100f;
-    private Vector2 _knockback;
+    [ExportGroup("移动")] [Export] public float Speed { get; set; } = 100f;
+    private Vector2 _knockBack;
+
+    private void Move(double delta)
+    {
+        Velocity = (Player.Position - Position).Normalized() * Speed;
+        _knockBack = _knockBack.MoveToward(Vector2.Zero, 1);
+        Velocity += _knockBack;
+
+        var collision = MoveAndCollide(Velocity * (float)delta);
+
+        var collider = collision?.GetCollider();
+        if (collider is Enemy enemy)
+        {
+            enemy._knockBack = (enemy.GlobalPosition - GlobalPosition).Normalized() * 50;
+        }
+    }
 
     #endregion
 
@@ -75,21 +89,19 @@ public partial class Enemy : CharacterBody2D
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
+        CheckSeparation();
+        Move(delta);
+    }
 
+    #endregion
+
+    #region 优化
+
+    private void CheckSeparation()
+    {
         var separation = (Player.Position - Position).Length();
         if (separation >= 500 && !IsElite)
             QueueFree();
-
-
-        Velocity = (Player.Position - Position).Normalized() * Speed;
-        _knockback = _knockback.MoveToward(Vector2.Zero, 1);
-        Velocity += _knockback;
-        var collision = MoveAndCollide(Velocity * (float)delta);
-        var collider = collision?.GetCollider();
-        if (collider is Enemy enemy)
-        {
-            enemy._knockback = (enemy.GlobalPosition - GlobalPosition).Normalized() * 50;
-        }
     }
 
     #endregion

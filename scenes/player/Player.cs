@@ -10,6 +10,12 @@ public partial class Player : CharacterBody2D
 
     [Export] public float Speed { get; set; } = 150f;
 
+    private void Move(double delta)
+    {
+        Velocity = Input.GetVector("left", "right", "up", "down") * Speed;
+        MoveAndCollide(Velocity * (float)delta);
+    }
+
     #endregion
 
     #region 生命
@@ -50,7 +56,7 @@ public partial class Player : CharacterBody2D
             TakeDamage(enemy.Damage);
     }
 
-    private void OnTimer_Timeout()
+    private void OnHurtTimer_Timeout()
     {
         SelfDamageCollisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
         SelfDamageCollisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
@@ -66,13 +72,13 @@ public partial class Player : CharacterBody2D
     {
         base._Ready();
         SelfDamageArea.BodyEntered += OnSelfDamageArea_BodyEntered;
+        HurtTimer.Timeout += OnHurtTimer_Timeout;
     }
 
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        Velocity = Input.GetVector("left", "right", "up", "down") * Speed;
-        MoveAndCollide(Velocity * (float)delta);
+        Move(delta);
     }
 
     #endregion
@@ -84,7 +90,7 @@ public partial class Player : CharacterBody2D
     public Area2D SelfDamageArea { get; set; } = null!;
 
     [Export] public ProgressBar UI_Health { get; set; } = null!;
-    [Export] public Timer Timer { get; set; } = null!;
+    [Export] public Timer HurtTimer { get; set; } = null!;
     [Export] public CollisionShape2D SelfDamageCollisionShape { get; set; } = null!;
 
     #endregion
